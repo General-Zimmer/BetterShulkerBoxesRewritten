@@ -25,10 +25,11 @@ public class InteractListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if(!instance.getBSBConfig().isEnableRightClickOpen()) return;
-        if (e.getAction() != Action.RIGHT_CLICK_AIR) return;
         ItemStack is = e.getPlayer().getInventory().getItemInMainHand();
         if (!MaterialUtil.isShulkerBox(is.getType())) return;
-        //todo permissions, cooldown, worldguard area perms, etc
+        //todo do the other plugins first, then here
+        if (e.getAction() != Action.RIGHT_CLICK_AIR)
+            e.setCancelled(true);
         if (BSBRewritten.getWorldGuardManager() != null) {
             for (String regionID : instance.getBSBConfig().getRegionList()) {
                 if (instance.getBSBConfig().isBlacklistRegions()) {
@@ -37,6 +38,7 @@ public class InteractListener implements Listener {
                     if (!BSBRewritten.getWorldGuardManager().isInRegion(e.getPlayer(), regionID)) return;
                 }
             }
+
         }
         BlockStateMeta bsm = (BlockStateMeta) is.getItemMeta();
         assert bsm != null;

@@ -39,7 +39,6 @@ public class InventoryCloseListener implements Listener {
         player.setItemOnCursor(null); //Workaround for Shulker box caught in cursor after opening with right click in inventory
     }
 
-    //todo view-mode only
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDrop(PlayerDropItemEvent e) {
         ItemStack droppedItem = e.getItemDrop().getItemStack();
